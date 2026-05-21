@@ -1,0 +1,538 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Avalon Davies — Conejo Malo</title>
+<meta name="description" content="Conejo Malo · nuevo sencillo de Avalon Davies. Pre-guarda ahora." />
+
+<!-- ============================================================
+     DESIGN NOTES (for the AI that will rebuild this page)
+     ------------------------------------------------------------
+     • Mobile-first. Canvas locked to a 430px column on desktop,
+       framed on a black backdrop so it always reads as a phone.
+     • Type: Instrument Serif (display, italic for sensual moments),
+             Space Grotesk (UI / sans), JetBrains Mono (meta / numerics).
+     • Palette:
+         --ink         #0a0807   near-black with warm tilt
+         --paper       #f3ece0   warm cream
+         --purple      oklch(58% 0.22 305)  PRIMARY — electric purple
+         --purple-glow oklch(70% 0.22 305)
+         --smoke       rgba(243,236,224,.55)
+     • Texture: SVG grain overlay at ~8% opacity, full-bleed.
+     • Cover artwork:
+         https://raw.githubusercontent.com/avalondavies/CONEJO_MALO/main/assets/images/CONEJO_MALO_PORTADA.png
+     • Release: 2026-05-29 19:00 America/Panama (UTC−5)
+         = 2026-05-30T00:00:00Z
+     • Sections (final, in order):
+         1. Glass nav strip (visual only — NO menu, NO text)
+         2. Hero (cover + "Conejo malo" title + Pre-Save button)
+         3. Purple ticker marquee
+         4. Countdown
+         5. Lyric hook
+         6. Pre-save grid (Spotify featured + 6 DSPs with logos)
+     ============================================================ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+  :root{
+    --ink:#0a0807;
+    --ink-2:#161015;
+    --paper:#f3ece0;
+    --paper-dim:#cfc6b8;
+    --purple:oklch(58% 0.22 305);
+    --purple-glow:oklch(70% 0.22 305);
+    --purple-deep:oklch(38% 0.18 300);
+    --smoke:rgba(243,236,224,.55);
+    --hair:rgba(243,236,224,.18);
+    --serif:"Instrument Serif", "Times New Roman", serif;
+    --sans:"Space Grotesk", system-ui, sans-serif;
+    --mono:"JetBrains Mono", ui-monospace, monospace;
+  }
+
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:#000;color:var(--paper);}
+  body{
+    font-family:var(--sans);font-weight:400;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+    min-height:100vh;overflow-x:hidden;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;}
+
+  /* --- Desktop staging: phone-sized column on black backdrop -------- */
+  .stage{
+    min-height:100vh;display:flex;justify-content:center;
+    background:
+      radial-gradient(60% 40% at 50% 0%, #1a0a26 0%, #000 60%),
+      #000;
+  }
+  .phone{
+    width:100%;max-width:430px;background:var(--ink);
+    position:relative;overflow:hidden;
+    box-shadow:0 40px 120px rgba(0,0,0,.6);
+  }
+  @media (min-width:520px){
+    .phone{ margin:24px 0; border-radius:38px; }
+  }
+
+  /* --- Global grain overlay --------------------------------------- */
+  .grain{
+    position:absolute;inset:0;pointer-events:none;z-index:60;
+    mix-blend-mode:overlay;opacity:.08;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  /* ===============  NAV — glass only, no text, no menu  =============== */
+  .nav{
+    position:sticky;top:0;z-index:50;
+    height:58px;
+    background:rgba(10,8,7,.35);
+    backdrop-filter:blur(18px) saturate(1.4);
+    -webkit-backdrop-filter:blur(18px) saturate(1.4);
+    border-bottom:1px solid rgba(243,236,224,.06);
+  }
+
+  /* ===============  HERO  ============================ */
+  .hero{
+    position:relative;
+    aspect-ratio: 3 / 4.2;
+    overflow:hidden;
+    margin-top:-58px; /* pull under sticky nav */
+    background:#1a0a26;
+  }
+  .hero__img{
+    position:absolute;inset:0;width:100%;height:100%;
+    object-fit:cover;object-position:center;
+    filter:saturate(1.05) contrast(1.05);
+  }
+  .hero__vignette{
+    position:absolute;inset:0;
+    background:
+      linear-gradient(180deg, rgba(10,8,7,.5) 0%, rgba(10,8,7,0) 28%, rgba(10,8,7,0) 55%, rgba(10,8,7,.88) 100%),
+      radial-gradient(120% 80% at 50% 60%, rgba(0,0,0,0) 40%, rgba(0,0,0,.45) 100%);
+  }
+  .hero__placeholder{
+    position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
+    background:repeating-linear-gradient(45deg, #261438 0 14px, #1a0a26 14px 28px);
+    color:var(--paper-dim);font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-align:center;padding:30px;
+  }
+  .hero__placeholder strong{display:block;color:var(--purple-glow);font-size:13px;margin-bottom:6px;letter-spacing:.2em;}
+
+  .hero__meta{
+    position:absolute;top:80px;left:22px;right:22px;
+    display:flex;justify-content:space-between;
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--smoke);
+  }
+  .hero__meta span:nth-child(2){color:var(--purple-glow);}
+
+  .hero__title{
+    position:absolute;left:22px;right:22px;bottom:120px;
+  }
+  .hero__artist{
+    font-family:var(--mono);font-size:11px;letter-spacing:.3em;text-transform:uppercase;
+    color:var(--paper);opacity:.85;margin-bottom:14px;
+  }
+  .hero__song{
+    font-family:var(--serif);
+    font-size:clamp(64px, 19vw, 92px);
+    line-height:.86;
+    letter-spacing:-.02em;
+    color:var(--paper);
+    text-wrap:balance;
+  }
+  .hero__song em{
+    font-style:italic;color:var(--purple-glow);
+    font-weight:400;
+    text-shadow:0 0 32px oklch(58% 0.22 305 / .55);
+  }
+
+  .hero__cta{
+    position:absolute;left:22px;right:22px;bottom:32px;
+  }
+  .btn{
+    width:100%;display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    padding:17px 18px;border-radius:999px;
+    font-family:var(--sans);font-size:14px;font-weight:600;letter-spacing:.04em;
+    transition:transform .2s ease, background .2s ease, box-shadow .2s ease;
+  }
+  .btn:active{transform:scale(.97);}
+  .btn--primary{
+    background:var(--purple);color:var(--paper);
+    box-shadow:0 18px 38px -16px oklch(58% 0.22 305 / .85);
+  }
+  .btn--primary:hover{ background:var(--purple-glow); }
+  .btn svg{width:15px;height:15px;}
+
+  /* ============== TICKER MARQUEE (purple) ============ */
+  .ticker{
+    background:var(--purple);
+    color:var(--paper);
+    overflow:hidden;
+    padding:14px 0;
+    border-top:1px solid rgba(0,0,0,.15);
+    border-bottom:1px solid rgba(0,0,0,.15);
+  }
+  .ticker__track{
+    display:flex;gap:32px;width:max-content;
+    animation:marquee 22s linear infinite;
+    font-family:var(--serif);font-style:italic;
+    font-size:30px;line-height:1;white-space:nowrap;
+  }
+  .ticker__track span::after{
+    content:"✦";margin-left:32px;font-style:normal;color:var(--ink);
+  }
+  @keyframes marquee{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
+  }
+
+  /* ============== COUNTDOWN ========================== */
+  .count{
+    padding:48px 22px 56px;
+    text-align:center;
+    border-bottom:1px solid var(--hair);
+  }
+  .count__kicker{
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;
+    color:var(--smoke);margin-bottom:18px;
+  }
+  .count__date{
+    font-family:var(--serif);font-style:italic;
+    font-size:34px;color:var(--paper);margin-bottom:6px;
+    letter-spacing:-.01em;
+  }
+  .count__time{
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--smoke);margin-bottom:30px;
+  }
+  .count__grid{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:10px;
+  }
+  .count__cell{
+    padding:18px 6px 14px;
+    border:1px solid var(--hair);border-radius:14px;
+    background:linear-gradient(180deg, rgba(243,236,224,.04), rgba(243,236,224,0));
+  }
+  .count__num{
+    font-family:var(--serif);font-size:38px;line-height:1;color:var(--paper);
+    font-variant-numeric:tabular-nums;
+  }
+  .count__lbl{
+    margin-top:8px;font-family:var(--mono);font-size:9.5px;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--smoke);
+  }
+
+  /* ============== LYRIC HOOK ========================= */
+  .lyric{
+    padding:64px 22px 72px;
+    position:relative;
+    background:
+      radial-gradient(80% 60% at 90% 20%, oklch(38% 0.18 300 / .45) 0%, transparent 60%),
+      var(--ink);
+  }
+  .lyric__quote{
+    font-family:var(--serif);
+    font-size:34px;line-height:1.12;
+    color:var(--paper);
+    letter-spacing:-.01em;
+    text-wrap:balance;
+  }
+  .lyric__quote em{
+    color:var(--purple-glow);font-style:italic;
+  }
+  .lyric__signature{margin-top:32px;}
+  .lyric__signature .sig{
+    font-family:var(--serif);font-style:italic;font-size:22px;color:var(--paper);
+  }
+
+  /* ============== PRE-SAVE GRID ====================== */
+  .save{
+    padding:60px 22px 90px;
+    border-top:1px solid var(--hair);
+  }
+  .save__title{
+    font-family:var(--serif);font-size:48px;line-height:.95;
+    margin-bottom:8px;letter-spacing:-.01em;
+  }
+  .save__title em{font-style:italic;color:var(--purple-glow);}
+  .save__sub{
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--smoke);margin-bottom:28px;
+  }
+  .save__grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:10px;
+  }
+  .dsp{
+    display:flex;align-items:center;gap:12px;
+    padding:16px 14px;border-radius:14px;
+    border:1px solid var(--hair);
+    transition:border-color .2s ease, transform .2s ease, background .2s ease;
+    min-height:64px;
+  }
+  .dsp:hover{ border-color:var(--paper); background:rgba(243,236,224,.04); }
+  .dsp:active{ transform:scale(.98); }
+  .dsp__logo{
+    width:26px;height:26px;flex:none;display:grid;place-items:center;
+  }
+  .dsp__logo svg{width:100%;height:100%;}
+  .dsp__name{
+    font-family:var(--sans);font-size:13px;font-weight:500;
+    flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .dsp__arrow{
+    width:22px;height:22px;border-radius:50%;
+    display:grid;place-items:center;
+    border:1px solid var(--hair);
+    font-size:10px;flex:none;opacity:.6;
+  }
+  .dsp:hover .dsp__arrow{opacity:1;}
+  .dsp--feature{
+    grid-column:1 / -1;
+    background:var(--purple);
+    border-color:var(--purple);
+    color:var(--paper);
+    padding:20px 18px;min-height:74px;
+    box-shadow:0 14px 36px -14px oklch(58% 0.22 305 / .7);
+  }
+  .dsp--feature:hover{ background:var(--purple-glow); border-color:transparent; }
+  .dsp--feature .dsp__name{font-size:15px;font-weight:600;letter-spacing:.02em;}
+  .dsp--feature .dsp__arrow{border-color:var(--paper);opacity:.9;}
+  .dsp--feature .dsp__logo{width:28px;height:28px;}
+
+</style>
+</head>
+<body>
+
+<div class="stage">
+<main class="phone">
+  <div class="grain"></div>
+
+  <!-- =================== NAV (glass only, no content) =================== -->
+  <header class="nav" aria-hidden="true"></header>
+
+  <!-- =================== HERO =================== -->
+  <section class="hero" aria-label="Portada">
+    <img
+      class="hero__img"
+      src="https://raw.githubusercontent.com/avalondavies/CONEJO_MALO/main/assets/images/CONEJO_MALO_PORTADA.png"
+      alt="Conejo Malo — portada"
+      onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+    />
+    <div class="hero__placeholder" style="display:none;">
+      <strong>COVER ARTWORK</strong>
+      CONEJO_MALO_PORTADA.png<br/>
+      drop image here · 3:4 ratio
+    </div>
+    <div class="hero__vignette"></div>
+
+    <div class="hero__meta">
+      <span>TRACK 01 · BUKOFLOW</span>
+      <span>● PRE-SAVE</span>
+    </div>
+
+    <div class="hero__title">
+      <div class="hero__artist">Avalon Davies presenta</div>
+      <h1 class="hero__song">Conejo<br/><em>malo</em></h1>
+    </div>
+
+    <div class="hero__cta">
+      <a href="#save" class="btn btn--primary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        Pre-Save
+      </a>
+    </div>
+  </section>
+
+  <!-- =================== TICKER =================== -->
+  <section class="ticker" aria-hidden="true">
+    <div class="ticker__track">
+      <span>Conejo Malo</span><span>Avalon Davies</span><span>nuevo sencillo</span><span>2026</span>
+      <span>Conejo Malo</span><span>Avalon Davies</span><span>nuevo sencillo</span><span>2026</span>
+    </div>
+  </section>
+
+  <!-- =================== COUNTDOWN =================== -->
+  <section class="count">
+    <div class="count__kicker">— estreno mundial —</div>
+    <div class="count__date">viernes, 29 de mayo</div>
+    <div class="count__time">7:00 PM · panamá (UTC −5)</div>
+    <div class="count__grid">
+      <div class="count__cell"><div class="count__num" data-c="d">--</div><div class="count__lbl">días</div></div>
+      <div class="count__cell"><div class="count__num" data-c="h">--</div><div class="count__lbl">hrs</div></div>
+      <div class="count__cell"><div class="count__num" data-c="m">--</div><div class="count__lbl">min</div></div>
+      <div class="count__cell"><div class="count__num" data-c="s">--</div><div class="count__lbl">seg</div></div>
+    </div>
+  </section>
+
+  <!-- =================== LYRIC HOOK =================== -->
+  <section class="lyric">
+    <p class="lyric__quote">
+      Ese nene que se mueve <em>así de frío</em><br/>
+      me tiene el cuerpo en <em>llamas</em><br/>
+      y él tan mío.
+    </p>
+    <div class="lyric__signature">
+      <div class="sig">— Avalon.</div>
+    </div>
+  </section>
+
+  <!-- =================== PRE-SAVE GRID =================== -->
+  <section class="save" id="save">
+    <h2 class="save__title">Pre-<em>guarda</em><br/>en tu favorita</h2>
+    <div class="save__sub">— elige tu plataforma —</div>
+    <div class="save__grid">
+
+      <!-- Featured: Spotify -->
+      <a href="#" class="dsp dsp--feature" aria-label="Pre-save en Spotify">
+        <span class="dsp__logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="12" fill="#1DB954"/>
+            <path d="M17.6 16.5c-.2.3-.6.4-.9.2-2.5-1.5-5.6-1.9-9.3-1-.4.1-.7-.1-.8-.5-.1-.4.1-.7.5-.8 4-.9 7.5-.5 10.3 1.2.3.2.4.6.2.9zm1.2-2.7c-.2.4-.7.5-1.1.3-2.8-1.7-7.2-2.2-10.5-1.2-.4.1-.9-.1-1-.6-.1-.5.1-.9.6-1 3.8-1.1 8.6-.5 11.8 1.4.4.2.5.7.2 1.1zm.1-2.9C15.4 8.9 9.6 8.7 6.3 9.7c-.5.2-1.1-.1-1.3-.7-.2-.5.1-1.1.7-1.3 3.8-1.1 10.2-.9 13.9 1.4.5.3.7.9.4 1.4-.3.4-.9.6-1.1.3z" fill="#000"/>
+          </svg>
+        </span>
+        <span class="dsp__name">Spotify · Pre-save</span>
+        <span class="dsp__arrow">↗</span>
+      </a>
+
+      <!-- Apple Music -->
+      <a href="#" class="dsp" aria-label="Apple Music">
+        <span class="dsp__logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="am" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#FF5A8A"/>
+                <stop offset="100%" stop-color="#B14EFF"/>
+              </linearGradient>
+            </defs>
+            <rect width="24" height="24" rx="6" fill="url(#am)"/>
+            <path d="M16.5 6.1c-1.8.3-4 .8-5.4 1.1-.4.1-.6.3-.6.7v6.7c0 .9-.7 1.6-1.6 1.6s-1.6-.7-1.6-1.6.7-1.6 1.6-1.6c.2 0 .4 0 .6.1V9.3c0-.6.3-.9.9-1 1-.3 3.5-.8 5.4-1.1.5-.1.8.2.8.7v4.9c0 .9-.7 1.6-1.6 1.6s-1.6-.7-1.6-1.6.7-1.6 1.6-1.6c.2 0 .4 0 .6.1V6.8c0-.5-.3-.8-.7-.7z" fill="#fff"/>
+          </svg>
+        </span>
+        <span class="dsp__name">Apple Music</span>
+        <span class="dsp__arrow">↗</span>
+      </a>
+
+      <!-- YouTube Music -->
+      <a href="#" class="dsp" aria-label="YouTube Music">
+        <span class="dsp__logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="12" fill="#FF0033"/>
+            <circle cx="12" cy="12" r="7.2" fill="none" stroke="#fff" stroke-width="1.2"/>
+            <path d="M10 9v6l5-3z" fill="#fff"/>
+          </svg>
+        </span>
+        <span class="dsp__name">YouTube Music</span>
+        <span class="dsp__arrow">↗</span>
+      </a>
+
+      <!-- Tidal -->
+      <a href="#" class="dsp" aria-label="Tidal">
+        <span class="dsp__logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <rect width="24" height="24" rx="6" fill="#0a0a0a"/>
+            <g fill="#fff">
+              <path d="M5.6 8.2l2.2 2.2-2.2 2.2L3.4 10.4z"/>
+              <path d="M10 8.2l2.2 2.2L10 12.6 7.8 10.4z"/>
+              <path d="M14.4 8.2l2.2 2.2-2.2 2.2-2.2-2.2z"/>
+              <path d="M18.8 8.2L21 10.4l-2.2 2.2-2.2-2.2z"/>
+              <path d="M10 12.8l2.2 2.2L10 17.2 7.8 15z"/>
+            </g>
+          </svg>
+        </span>
+        <span class="dsp__name">TIDAL</span>
+        <span class="dsp__arrow">↗</span>
+      </a>
+
+      <!-- Amazon Music -->
+      <a href="#" class="dsp" aria-label="Amazon Music">
+        <span class="dsp__logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <rect width="24" height="24" rx="6" fill="#0a1a2b"/>
+            <path d="M8 9.5c0-1.4 1.1-2.5 2.5-2.5h3c1.4 0 2.5 1.1 2.5 2.5v3.7" fill="none" stroke="#25D1DA" stroke-width="1.4" stroke-linecap="round"/>
+            <circle cx="12" cy="14" r="2.2" fill="#25D1DA"/>
+            <path d="M6.5 17c2.5 1.6 8.5 1.6 11 0" stroke="#25D1DA" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+          </svg>
+        </span>
+        <span class="dsp__name">Amazon Music</span>
+        <span class="dsp__arrow">↗</span>
+      </a>
+
+      <!-- Deezer -->
+      <a href="#" class="dsp" aria-label="Deezer">
+        <span class="dsp__logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <rect width="24" height="24" rx="6" fill="#0a0a0a"/>
+            <g>
+              <rect x="3"   y="15.5" width="3.6" height="2" fill="#F4F4F4"/>
+              <rect x="7.6" y="15.5" width="3.6" height="2" fill="#A238FF"/>
+              <rect x="12.2" y="15.5" width="3.6" height="2" fill="#FF3D7F"/>
+              <rect x="16.8" y="15.5" width="3.6" height="2" fill="#FF8A00"/>
+              <rect x="7.6" y="12.5" width="3.6" height="2" fill="#FF8A00"/>
+              <rect x="12.2" y="12.5" width="3.6" height="2" fill="#00C7F2"/>
+              <rect x="16.8" y="12.5" width="3.6" height="2" fill="#FF3D7F"/>
+              <rect x="12.2" y="9.5"  width="3.6" height="2" fill="#00C7F2"/>
+              <rect x="16.8" y="9.5"  width="3.6" height="2" fill="#A238FF"/>
+              <rect x="16.8" y="6.5"  width="3.6" height="2" fill="#FFC500"/>
+            </g>
+          </svg>
+        </span>
+        <span class="dsp__name">Deezer</span>
+        <span class="dsp__arrow">↗</span>
+      </a>
+
+      <!-- SoundCloud -->
+      <a href="#" class="dsp" aria-label="SoundCloud">
+        <span class="dsp__logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <rect width="24" height="24" rx="6" fill="#FF5500"/>
+            <g fill="#fff">
+              <rect x="4"    y="11"   width="1.3" height="6"   rx=".6"/>
+              <rect x="6"    y="9.5"  width="1.3" height="7.5" rx=".6"/>
+              <rect x="8"    y="8.5"  width="1.3" height="8.5" rx=".6"/>
+              <rect x="10"   y="7"    width="1.3" height="10"  rx=".6"/>
+              <path d="M12.5 7c.4-.2 1-.3 1.5-.3 2 0 3.6 1.5 3.9 3.4.3-.1.6-.1.9-.1 1.5 0 2.7 1.2 2.7 2.7s-1.2 2.7-2.7 2.7h-6.3V7z"/>
+            </g>
+          </svg>
+        </span>
+        <span class="dsp__name">SoundCloud</span>
+        <span class="dsp__arrow">↗</span>
+      </a>
+
+    </div>
+  </section>
+
+</main>
+</div>
+
+<script>
+  /* ---------- Countdown to release ----------
+     Target: 2026-05-29 19:00 America/Panama (UTC-5)
+            = 2026-05-30T00:00:00Z */
+  (function(){
+    const target = Date.UTC(2026, 4, 30, 0, 0, 0); // month is 0-indexed: 4 = May
+    const cells = {
+      d: document.querySelector('[data-c="d"]'),
+      h: document.querySelector('[data-c="h"]'),
+      m: document.querySelector('[data-c="m"]'),
+      s: document.querySelector('[data-c="s"]'),
+    };
+    const pad = n => String(Math.max(0,n)).padStart(2,'0');
+    function tick(){
+      const diff = Math.max(0, target - Date.now());
+      cells.d.textContent = pad(Math.floor(diff / 86400000));
+      cells.h.textContent = pad(Math.floor((diff % 86400000) / 3600000));
+      cells.m.textContent = pad(Math.floor((diff % 3600000) / 60000));
+      cells.s.textContent = pad(Math.floor((diff % 60000) / 1000));
+    }
+    tick();
+    setInterval(tick, 1000);
+  })();
+</script>
+</body>
+</html>
