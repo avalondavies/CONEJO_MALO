@@ -7,11 +7,11 @@
 <meta name="description" content="Conejo Malo · nuevo sencillo de Avalon Davies. Pre-guarda ahora y sé de los primeros en escucharlo." />
 
 <!-- ============================================================
-     CORRECCIONES Y MEJORAS:
-     • Arreglado icono de estrella ✦ en el ticker (ahora se ve correctamente)
-     • Botones DSP más responsivos en iPhone: padding reducido en pantallas pequeñas, mejor manejo de texto
-     • Añadida sección de links de la artista (Avalon Davies) con Instagram, Spotify y YouTube + mención a KESOLO y LICENCIA P
-     • Más ajustes de espaciado para evitar overflow en móvil
+     ACTUALIZACIÓN:
+     • Link de Spotify Pre-Save actualizado con el que diste (spotify:album:1tWm0qNtmLFCxq48w4fZba → versión web https://open.spotify.com/album/1tWm0qNtmLFCxq48w4fZba)
+     • Eliminada la línea "Escucha KESOLO & LICENCIA P" de la sección de la artista (como pediste)
+     • Se mantiene la sección de links de Avalon Davies (IG, Spotify, YT)
+     • Los demás botones siguen con toast de confirmación (puedes cambiar sus href cuando tengas los links)
      ============================================================ -->
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -359,9 +359,6 @@
     color:var(--purple-glow);
     background:rgba(243,236,224,.08);
   }
-  .artist__note{
-    margin-top:10px;font-size:11px;color:var(--smoke);font-family:var(--mono);letter-spacing:.15em;
-  }
 
   /* Small screen tweaks for DSP buttons */
   @media (max-width:380px){
@@ -455,8 +452,8 @@
     <div class="save__sub">— elige tu plataforma —</div>
     <div class="save__grid">
 
-      <!-- Featured: Spotify -->
-      <a href="#" class="dsp dsp--feature" data-platform="Spotify" aria-label="Pre-guardar en Spotify">
+      <!-- Featured: Spotify (Pre-Save link actualizado) -->
+      <a href="https://open.spotify.com/album/1tWm0qNtmLFCxq48w4fZba" target="_blank" rel="noopener" class="dsp dsp--feature" data-platform="Spotify" aria-label="Pre-guardar en Spotify">
         <span class="dsp__logo" aria-hidden="true">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <circle cx="12" cy="12" r="12" fill="#1DB954"/>
@@ -586,7 +583,6 @@
       <a href="https://open.spotify.com/artist/1AX2f8OXYbwrXWvpteutyU" target="_blank" rel="noopener">Spotify</a>
       <a href="https://www.youtube.com/@AvalonDavies" target="_blank" rel="noopener">YouTube</a>
     </div>
-    <div class="artist__note">Escucha KESOLO & LICENCIA P</div>
   </section>
 
 </main>
@@ -629,22 +625,23 @@
 
     dsps.forEach(btn => {
       btn.addEventListener('click', function(e) {
-        e.preventDefault();
-        const platform = btn.dataset.platform || 'tu plataforma';
-        
-        // Show toast
-        toastText.textContent = `¡Gracias! Te avisaremos cuando salga en ${platform}.`;
-        toast.style.display = 'flex';
-        toast.classList.add('show');
+        // Solo mostrar toast si NO es el botón de Spotify (que ya tiene link real)
+        if (btn.getAttribute('href') === '#') {
+          e.preventDefault();
+          const platform = btn.dataset.platform || 'tu plataforma';
+          
+          toastText.textContent = `¡Gracias! Te avisaremos cuando salga en ${platform}.`;
+          toast.style.display = 'flex';
+          toast.classList.add('show');
 
-        // Auto hide
-        setTimeout(() => {
-          toast.classList.remove('show');
-          setTimeout(() => { toast.style.display = 'none'; }, 300);
-        }, 2800);
+          setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => { toast.style.display = 'none'; }, 300);
+          }, 2800);
 
-        // Optional: haptic feedback on supported devices
-        if (navigator.vibrate) navigator.vibrate(25);
+          if (navigator.vibrate) navigator.vibrate(25);
+        }
+        // Si tiene link real (Spotify), deja que abra normalmente
       });
     });
   })();
