@@ -8,10 +8,9 @@
 
 <!-- ============================================================
      ACTUALIZACIÓN:
-     • Link de Spotify Pre-Save actualizado con el que diste (spotify:album:1tWm0qNtmLFCxq48w4fZba → versión web https://open.spotify.com/album/1tWm0qNtmLFCxq48w4fZba)
-     • Eliminada la línea "Escucha KESOLO & LICENCIA P" de la sección de la artista (como pediste)
-     • Se mantiene la sección de links de Avalon Davies (IG, Spotify, YT)
-     • Los demás botones siguen con toast de confirmación (puedes cambiar sus href cuando tengas los links)
+     • Botón de Spotify ahora apunta al smart link de PUSH.fm que creaste
+     • El pre-save ya funciona de forma profesional (igual que Linkfire/Feature.fm)
+     • Se mantiene todo lo demás optimizado
      ============================================================ -->
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -452,8 +451,8 @@
     <div class="save__sub">— elige tu plataforma —</div>
     <div class="save__grid">
 
-      <!-- Featured: Spotify (Pre-Save link actualizado) -->
-      <a href="https://open.spotify.com/album/1tWm0qNtmLFCxq48w4fZba" target="_blank" rel="noopener" class="dsp dsp--feature" data-platform="Spotify" aria-label="Pre-guardar en Spotify">
+      <!-- Featured: Spotify - Smart Link PUSH.fm -->
+      <a href="https://push.fm/ps/con" target="_blank" rel="noopener" class="dsp dsp--feature" data-platform="Spotify" aria-label="Pre-guardar en Spotify">
         <span class="dsp__logo" aria-hidden="true">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <circle cx="12" cy="12" r="12" fill="#1DB954"/>
@@ -617,7 +616,7 @@
     setInterval(tick, 1000);
   })();
 
-  /* ---------- Pre-save buttons UX: Toast + feedback ---------- */
+  /* ---------- Pre-save buttons UX: Toast solo en botones sin link real ---------- */
   (function(){
     const dsps = document.querySelectorAll('.dsp');
     const toast = document.getElementById('toast');
@@ -625,7 +624,6 @@
 
     dsps.forEach(btn => {
       btn.addEventListener('click', function(e) {
-        // Solo mostrar toast si NO es el botón de Spotify (que ya tiene link real)
         if (btn.getAttribute('href') === '#') {
           e.preventDefault();
           const platform = btn.dataset.platform || 'tu plataforma';
@@ -641,7 +639,6 @@
 
           if (navigator.vibrate) navigator.vibrate(25);
         }
-        // Si tiene link real (Spotify), deja que abra normalmente
       });
     });
   })();
