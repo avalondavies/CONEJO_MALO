@@ -81,43 +81,12 @@
     background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
   }
 
-  /* ===============  NAV — Glassmorphism suave y elegante ============ */
-  .nav{
-    position:sticky;top:0;z-index:50;
-    height:58px;
-    background: rgba(10,8,7, 0.22);
-    backdrop-filter: blur(26px) saturate(1.7);
-    -webkit-backdrop-filter: blur(26px) saturate(1.7);
-    border-bottom: 1px solid rgba(243,236,224, 0.035);
-    box-shadow: 0 10px 40px rgba(0,0,0,0.22);
-  }
-
-  /* ===============  HERO  ============================ */
+  /* ===============  HERO (sin nav superior)  ============================ */
   .hero{
     position:relative;
     aspect-ratio: 3 / 4.2;
     overflow:hidden;
-    margin-top:-58px;
     background:#1a0a26;
-  }
-
-  /* Gradiente superior suave para transición con el nav (más largo y difuminado) */
-  .hero::before{
-    content:'';
-    position:absolute;
-    top:0;
-    left:0;
-    right:0;
-    height:130px;
-    background: linear-gradient(
-      to bottom,
-      rgba(10,8,7,0.48) 0%,
-      rgba(10,8,7,0.22) 38%,
-      rgba(10,8,7,0.08) 65%,
-      transparent 100%
-    );
-    z-index:5;
-    pointer-events:none;
   }
 
   .hero__img{
@@ -142,7 +111,7 @@
   .hero__placeholder strong{display:block;color:var(--purple-glow);font-size:13px;margin-bottom:6px;letter-spacing:.2em;}
 
   .hero__meta{
-    position:absolute;top:80px;left:22px;right:22px;
+    position:absolute;top:22px;left:22px;right:22px;
     display:flex;justify-content:space-between;
     font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;
     color:var(--smoke);
@@ -456,10 +425,7 @@
 <main class="phone">
   <div class="grain"></div>
 
-  <!-- =================== NAV (glassmorphism suave) =================== -->
-  <header class="nav" aria-hidden="true"></header>
-
-  <!-- =================== HERO =================== -->
+  <!-- =================== HERO (sin franja superior) =================== -->
   <section class="hero" aria-label="Portada del sencillo Conejo Malo">
     <img
       class="hero__img"
@@ -593,7 +559,7 @@
       </a>
 
       <!-- Amazon Music - Perfil de la artista -->
-      <a href="https://music.amazon.com/artists/B0D..." target="_blank" rel="noopener" class="dsp" data-platform="Amazon Music" aria-label="Perfil de Avalon Davies en Amazon Music">
+      <a href="https://music.amazon.com/artists/" target="_blank" rel="noopener" class="dsp" data-platform="Amazon Music" aria-label="Perfil de Avalon Davies en Amazon Music">
         <span class="dsp__logo" aria-hidden="true">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <rect width="24" height="24" rx="6" fill="#0a1a2b"/>
@@ -773,7 +739,7 @@
           setTimeout(() => {
             toast.classList.remove('show');
             setTimeout(() => { toast.style.display = 'none'; }, 300);
-          }, 2800);
+            }, 2800);
 
           if (navigator.vibrate) navigator.vibrate(25);
         });
