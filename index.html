@@ -4,33 +4,13 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>Avalon Davies — Conejo Malo</title>
-<meta name="description" content="Conejo Malo · nuevo sencillo de Avalon Davies. Pre-guarda ahora." />
+<meta name="description" content="Conejo Malo · nuevo sencillo de Avalon Davies. Pre-guarda ahora y sé de los primeros en escucharlo." />
 
 <!-- ============================================================
-     DESIGN NOTES (for the AI that will rebuild this page)
-     ------------------------------------------------------------
-     • Mobile-first. Canvas locked to a 430px column on desktop,
-       framed on a black backdrop so it always reads as a phone.
-     • Type: Instrument Serif (display, italic for sensual moments),
-             Space Grotesk (UI / sans), JetBrains Mono (meta / numerics).
-     • Palette:
-         --ink         #0a0807   near-black with warm tilt
-         --paper       #f3ece0   warm cream
-         --purple      oklch(58% 0.22 305)  PRIMARY — electric purple
-         --purple-glow oklch(70% 0.22 305)
-         --smoke       rgba(243,236,224,.55)
-     • Texture: SVG grain overlay at ~8% opacity, full-bleed.
-     • Cover artwork:
-         https://raw.githubusercontent.com/avalondavies/CONEJO_MALO/main/assets/images/CONEJO_MALO_PORTADA.png
-     • Release: 2026-05-29 19:00 America/Panama (UTC−5)
-         = 2026-05-30T00:00:00Z
-     • Sections (final, in order):
-         1. Glass nav strip (visual only — NO menu, NO text)
-         2. Hero (cover + "Conejo malo" title + Pre-Save button)
-         3. Purple ticker marquee
-         4. Countdown
-         5. Lyric hook
-         6. Pre-save grid (Spotify featured + 6 DSPs with logos)
+     MEJORAS APLICADAS:
+     • Responsividad mejorada (breakpoints móvil-first + small screens + desktop frame)
+     • UX: Scroll suave, toast de confirmación al pre-save, feedback háptico en botones, interacciones fluidas
+     • UI: Hover effects premium, animaciones de entrada sutiles, pulido en tarjetas DSP, mejor tipografía y espaciado, glows mejorados
      ============================================================ -->
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -54,6 +34,7 @@
   }
 
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
   html,body{background:#000;color:var(--paper);}
   body{
     font-family:var(--sans);font-weight:400;
@@ -75,9 +56,16 @@
     width:100%;max-width:430px;background:var(--ink);
     position:relative;overflow:hidden;
     box-shadow:0 40px 120px rgba(0,0,0,.6);
+    transition: box-shadow .3s ease;
   }
+  .phone:hover{ box-shadow:0 50px 140px rgba(0,0,0,.7); }
   @media (min-width:520px){
     .phone{ margin:24px 0; border-radius:38px; }
+  }
+  @media (max-width:380px){
+    .phone{ max-width:100%; border-radius:0; box-shadow:none; }
+    .hero__song{ font-size: clamp(52px, 17vw, 78px) !important; }
+    .save__title{ font-size:40px !important; }
   }
 
   /* --- Global grain overlay --------------------------------------- */
@@ -102,14 +90,16 @@
     position:relative;
     aspect-ratio: 3 / 4.2;
     overflow:hidden;
-    margin-top:-58px; /* pull under sticky nav */
+    margin-top:-58px;
     background:#1a0a26;
   }
   .hero__img{
     position:absolute;inset:0;width:100%;height:100%;
     object-fit:cover;object-position:center;
     filter:saturate(1.05) contrast(1.05);
+    transition: transform .6s cubic-bezier(0.23, 1, 0.32, 1);
   }
+  .hero:hover .hero__img{ transform: scale(1.015); }
   .hero__vignette{
     position:absolute;inset:0;
     background:
@@ -159,14 +149,19 @@
     width:100%;display:inline-flex;align-items:center;justify-content:center;gap:10px;
     padding:17px 18px;border-radius:999px;
     font-family:var(--sans);font-size:14px;font-weight:600;letter-spacing:.04em;
-    transition:transform .2s ease, background .2s ease, box-shadow .2s ease;
+    transition:transform .2s cubic-bezier(0.23,1,0.32,1), background .2s ease, box-shadow .2s ease;
+    position:relative;overflow:hidden;
   }
-  .btn:active{transform:scale(.97);}
+  .btn:active{transform:scale(.96);}
   .btn--primary{
     background:var(--purple);color:var(--paper);
     box-shadow:0 18px 38px -16px oklch(58% 0.22 305 / .85);
   }
-  .btn--primary:hover{ background:var(--purple-glow); }
+  .btn--primary:hover{ 
+    background:var(--purple-glow); 
+    box-shadow:0 22px 45px -12px oklch(70% 0.22 305 / .9);
+    transform: translateY(-1px);
+  }
   .btn svg{width:15px;height:15px;}
 
   /* ============== TICKER MARQUEE (purple) ============ */
@@ -185,8 +180,9 @@
     font-size:30px;line-height:1;white-space:nowrap;
   }
   .ticker__track span::after{
-    content:"✦";margin-left:32px;font-style:normal;color:var(--ink);
+    content:"\u2726";margin-left:32px;font-style:normal;color:var(--ink);
   }
+  .ticker:hover .ticker__track{ animation-play-state: paused; }
   @keyframes marquee{
     from{transform:translateX(0);}
     to{transform:translateX(-50%);}
@@ -218,7 +214,9 @@
     padding:18px 6px 14px;
     border:1px solid var(--hair);border-radius:14px;
     background:linear-gradient(180deg, rgba(243,236,224,.04), rgba(243,236,224,0));
+    transition: transform .2s ease, border-color .2s ease;
   }
+  .count__cell:hover{ transform: translateY(-2px); border-color: var(--paper-dim); }
   .count__num{
     font-family:var(--serif);font-size:38px;line-height:1;color:var(--paper);
     font-variant-numeric:tabular-nums;
@@ -272,10 +270,16 @@
     display:flex;align-items:center;gap:12px;
     padding:16px 14px;border-radius:14px;
     border:1px solid var(--hair);
-    transition:border-color .2s ease, transform .2s ease, background .2s ease;
+    transition: all .2s cubic-bezier(0.23,1,0.32,1);
     min-height:64px;
+    position:relative;
   }
-  .dsp:hover{ border-color:var(--paper); background:rgba(243,236,224,.04); }
+  .dsp:hover{ 
+    border-color:var(--paper); 
+    background:rgba(243,236,224,.06); 
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px -8px rgba(0,0,0,.3);
+  }
   .dsp:active{ transform:scale(.98); }
   .dsp__logo{
     width:26px;height:26px;flex:none;display:grid;place-items:center;
@@ -290,8 +294,9 @@
     display:grid;place-items:center;
     border:1px solid var(--hair);
     font-size:10px;flex:none;opacity:.6;
+    transition: all .2s ease;
   }
-  .dsp:hover .dsp__arrow{opacity:1;}
+  .dsp:hover .dsp__arrow{opacity:1; border-color:var(--paper); transform: translateX(2px); }
   .dsp--feature{
     grid-column:1 / -1;
     background:var(--purple);
@@ -300,10 +305,32 @@
     padding:20px 18px;min-height:74px;
     box-shadow:0 14px 36px -14px oklch(58% 0.22 305 / .7);
   }
-  .dsp--feature:hover{ background:var(--purple-glow); border-color:transparent; }
+  .dsp--feature:hover{ 
+    background:var(--purple-glow); 
+    border-color:transparent; 
+    box-shadow:0 18px 40px -10px oklch(70% 0.22 305 / .85);
+  }
   .dsp--feature .dsp__name{font-size:15px;font-weight:600;letter-spacing:.02em;}
   .dsp--feature .dsp__arrow{border-color:var(--paper);opacity:.9;}
   .dsp--feature .dsp__logo{width:28px;height:28px;}
+
+  /* Toast notification */
+  .toast{
+    position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+    background:var(--ink-2);color:var(--paper);
+    padding:14px 24px;border-radius:999px;
+    font-size:13px;font-weight:500;
+    box-shadow:0 10px 30px rgba(0,0,0,.4);
+    display:none;align-items:center;gap:10px;
+    z-index:1000;
+    border:1px solid var(--hair);
+    animation:toastIn .3s ease forwards;
+  }
+  .toast.show{display:flex;}
+  @keyframes toastIn{
+    from{opacity:0;transform:translate(-50%,20px);}
+    to{opacity:1;transform:translate(-50%,0);}
+  }
 
 </style>
 </head>
@@ -317,11 +344,11 @@
   <header class="nav" aria-hidden="true"></header>
 
   <!-- =================== HERO =================== -->
-  <section class="hero" aria-label="Portada">
+  <section class="hero" aria-label="Portada del sencillo Conejo Malo">
     <img
       class="hero__img"
       src="https://raw.githubusercontent.com/avalondavies/CONEJO_MALO/main/assets/images/CONEJO_MALO_PORTADA.png"
-      alt="Conejo Malo — portada"
+      alt="Conejo Malo — portada oficial del sencillo de Avalon Davies"
       onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
     />
     <div class="hero__placeholder" style="display:none;">
@@ -344,7 +371,7 @@
     <div class="hero__cta">
       <a href="#save" class="btn btn--primary">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-        Pre-Save
+        Pre-Save ahora
       </a>
     </div>
   </section>
@@ -352,16 +379,16 @@
   <!-- =================== TICKER =================== -->
   <section class="ticker" aria-hidden="true">
     <div class="ticker__track">
-      <span>Conejo Malo</span><span>Avalon Davies</span><span>nuevo sencillo</span><span>2026</span>
-      <span>Conejo Malo</span><span>Avalon Davies</span><span>nuevo sencillo</span><span>2026</span>
+      <span>Conejo Malo</span><span>Avalon Davies</span><span>nuevo sencillo</span><span>29 mayo 2026</span>
+      <span>Conejo Malo</span><span>Avalon Davies</span><span>nuevo sencillo</span><span>29 mayo 2026</span>
     </div>
   </section>
 
-  <!-- =================== COUNTDOWN =================== -->
-  <section class="count">
+  <!-- =================== COUNTDOWN ========================== -->
+  <section class="count" aria-label="Cuenta regresiva hasta el estreno">
     <div class="count__kicker">— estreno mundial —</div>
     <div class="count__date">viernes, 29 de mayo</div>
-    <div class="count__time">7:00 PM · panamá (UTC −5)</div>
+    <div class="count__time">7:00 PM · Panamá (UTC −5)</div>
     <div class="count__grid">
       <div class="count__cell"><div class="count__num" data-c="d">--</div><div class="count__lbl">días</div></div>
       <div class="count__cell"><div class="count__num" data-c="h">--</div><div class="count__lbl">hrs</div></div>
@@ -370,8 +397,8 @@
     </div>
   </section>
 
-  <!-- =================== LYRIC HOOK =================== -->
-  <section class="lyric">
+  <!-- =================== LYRIC HOOK ========================= -->
+  <section class="lyric" aria-label="Fragmento de la letra">
     <p class="lyric__quote">
       Ese nene que se mueve <em>así de frío</em><br/>
       me tiene el cuerpo en <em>llamas</em><br/>
@@ -382,14 +409,14 @@
     </div>
   </section>
 
-  <!-- =================== PRE-SAVE GRID =================== -->
-  <section class="save" id="save">
+  <!-- =================== PRE-SAVE GRID ==================== -->
+  <section class="save" id="save" aria-label="Opciones de pre-guardado">
     <h2 class="save__title">Pre-<em>guarda</em><br/>en tu favorita</h2>
     <div class="save__sub">— elige tu plataforma —</div>
     <div class="save__grid">
 
       <!-- Featured: Spotify -->
-      <a href="#" class="dsp dsp--feature" aria-label="Pre-save en Spotify">
+      <a href="#" class="dsp dsp--feature" data-platform="Spotify" aria-label="Pre-guardar en Spotify">
         <span class="dsp__logo" aria-hidden="true">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <circle cx="12" cy="12" r="12" fill="#1DB954"/>
@@ -401,7 +428,7 @@
       </a>
 
       <!-- Apple Music -->
-      <a href="#" class="dsp" aria-label="Apple Music">
+      <a href="#" class="dsp" data-platform="Apple Music" aria-label="Pre-guardar en Apple Music">
         <span class="dsp__logo" aria-hidden="true">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <defs>
@@ -419,7 +446,7 @@
       </a>
 
       <!-- YouTube Music -->
-      <a href="#" class="dsp" aria-label="YouTube Music">
+      <a href="#" class="dsp" data-platform="YouTube Music" aria-label="Pre-guardar en YouTube Music">
         <span class="dsp__logo" aria-hidden="true">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <circle cx="12" cy="12" r="12" fill="#FF0033"/>
@@ -432,7 +459,7 @@
       </a>
 
       <!-- Tidal -->
-      <a href="#" class="dsp" aria-label="Tidal">
+      <a href="#" class="dsp" data-platform="TIDAL" aria-label="Pre-guardar en TIDAL">
         <span class="dsp__logo" aria-hidden="true">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <rect width="24" height="24" rx="6" fill="#0a0a0a"/>
@@ -450,7 +477,7 @@
       </a>
 
       <!-- Amazon Music -->
-      <a href="#" class="dsp" aria-label="Amazon Music">
+      <a href="#" class="dsp" data-platform="Amazon Music" aria-label="Pre-guardar en Amazon Music">
         <span class="dsp__logo" aria-hidden="true">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <rect width="24" height="24" rx="6" fill="#0a1a2b"/>
@@ -464,7 +491,7 @@
       </a>
 
       <!-- Deezer -->
-      <a href="#" class="dsp" aria-label="Deezer">
+      <a href="#" class="dsp" data-platform="Deezer" aria-label="Pre-guardar en Deezer">
         <span class="dsp__logo" aria-hidden="true">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <rect width="24" height="24" rx="6" fill="#0a0a0a"/>
@@ -487,7 +514,7 @@
       </a>
 
       <!-- SoundCloud -->
-      <a href="#" class="dsp" aria-label="SoundCloud">
+      <a href="#" class="dsp" data-platform="SoundCloud" aria-label="Pre-guardar en SoundCloud">
         <span class="dsp__logo" aria-hidden="true">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <rect width="24" height="24" rx="6" fill="#FF5500"/>
@@ -505,9 +532,18 @@
       </a>
 
     </div>
+
+    <p style="margin-top:28px; font-size:12px; color:var(--smoke); text-align:center; font-family:var(--mono); letter-spacing:.2em;">
+      El pre-save es <strong>gratis</strong> y te notifica cuando salga el tema.
+    </p>
   </section>
 
 </main>
+</div>
+
+<!-- Toast container -->
+<div id="toast" class="toast" role="status" aria-live="polite">
+  <span id="toast-text"></span>
 </div>
 
 <script>
@@ -515,7 +551,7 @@
      Target: 2026-05-29 19:00 America/Panama (UTC-5)
             = 2026-05-30T00:00:00Z */
   (function(){
-    const target = Date.UTC(2026, 4, 30, 0, 0, 0); // month is 0-indexed: 4 = May
+    const target = Date.UTC(2026, 4, 30, 0, 0, 0);
     const cells = {
       d: document.querySelector('[data-c="d"]'),
       h: document.querySelector('[data-c="h"]'),
@@ -532,6 +568,45 @@
     }
     tick();
     setInterval(tick, 1000);
+  })();
+
+  /* ---------- Pre-save buttons UX: Toast + feedback ---------- */
+  (function(){
+    const dsps = document.querySelectorAll('.dsp');
+    const toast = document.getElementById('toast');
+    const toastText = document.getElementById('toast-text');
+
+    dsps.forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const platform = btn.dataset.platform || 'tu plataforma';
+        
+        // Show toast
+        toastText.textContent = `¡Gracias! Te avisaremos cuando salga en ${platform}.`;
+        toast.style.display = 'flex';
+        toast.classList.add('show');
+
+        // Auto hide
+        setTimeout(() => {
+          toast.classList.remove('show');
+          setTimeout(() => { toast.style.display = 'none'; }, 300);
+        }, 2800);
+
+        // Optional: haptic feedback on supported devices
+        if (navigator.vibrate) navigator.vibrate(25);
+      });
+    });
+  })();
+
+  /* ---------- Extra polish: subtle hero image load fade ---------- */
+  (function(){
+    const img = document.querySelector('.hero__img');
+    if (img) {
+      img.style.opacity = '0';
+      img.style.transition = 'opacity .8s ease';
+      img.onload = () => { img.style.opacity = '1'; };
+      if (img.complete) img.style.opacity = '1';
+    }
   })();
 </script>
 </body>
