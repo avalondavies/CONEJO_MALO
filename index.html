@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Avalon Davies — Conejo Malo | Pre-Save</title>
-<meta name="description" content="Pre-guarda ahora el nuevo sencillo de Avalon Davies. Estreno mundial: 29 de mayo de 2026." />
+<title>Avalon Davies — Conejo Malo | Escucha ahora</title>
+<meta name="description" content="Ya disponible: Conejo Malo, el nuevo sencillo de Avalon Davies. Escúchalo en Spotify, Apple Music, Tidal y más." />
 
 <!-- Open Graph / Social Sharing -->
-<meta property="og:title" content="Avalon Davies — Conejo Malo | Pre-Save ahora" />
-<meta property="og:description" content="Pre-guarda el nuevo sencillo de Avalon Davies. Estreno 29 de mayo." />
+<meta property="og:title" content="Avalon Davies — Conejo Malo | Ya disponible" />
+<meta property="og:description" content="Escucha ahora el nuevo sencillo de Avalon Davies en todas las plataformas." />
 <meta property="og:image" content="https://raw.githubusercontent.com/avalondavies/CONEJO_MALO/main/assets/images/CONEJO_MALO_PORTADA.png" />
 <meta property="og:url" content="https://avalondavies.github.io/CONEJO_MALO/" />
 <meta property="og:type" content="website" />
@@ -16,7 +16,7 @@
 
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Avalon Davies — Conejo Malo" />
-<meta name="twitter:description" content="Pre-guarda ahora. Estreno 29 de mayo." />
+<meta name="twitter:description" content="Ya disponible en todas las plataformas. Escúchalo ahora." />
 <meta name="twitter:image" content="https://raw.githubusercontent.com/avalondavies/CONEJO_MALO/main/assets/images/CONEJO_MALO_PORTADA.png" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -391,7 +391,51 @@
     .dsp__logo{ width:23px; height:23px; }
   }
 
-  /* ==================== MODAL PRE-SAVE ==================== */
+  /* ============== DISPONIBLE BADGE ====================== */
+  .avail-badge{
+    display:inline-flex;align-items:center;gap:10px;
+    margin-top:20px;padding:12px 22px;
+    border-radius:999px;
+    background:linear-gradient(135deg, oklch(38% 0.18 300 / .3), oklch(58% 0.22 305 / .15));
+    border:1px solid oklch(58% 0.22 305 / .4);
+    font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--paper);
+  }
+  .avail-dot{
+    width:8px;height:8px;border-radius:50%;
+    background:var(--purple-glow);
+    box-shadow:0 0 8px var(--purple-glow), 0 0 18px var(--purple);
+    animation:pulse 1.8s ease-in-out infinite;
+    flex:none;
+  }
+  @keyframes pulse{
+    0%,100%{opacity:1;transform:scale(1);}
+    50%{opacity:.6;transform:scale(.8);}
+  }
+
+  /* ============== VIDEO SECTION ========================== */
+  .video-section{
+    padding:48px 22px 56px;
+    border-top:1px solid var(--hair);
+    text-align:center;
+  }
+  .video-kicker{
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;
+    color:var(--smoke);margin-bottom:20px;
+  }
+  .video-wrap{
+    position:relative;padding-bottom:56.25%;height:0;overflow:hidden;
+    border-radius:16px;border:1px solid var(--hair);
+    box-shadow:0 20px 50px -16px rgba(0,0,0,.6);
+    transition:box-shadow .3s ease;
+  }
+  .video-wrap:hover{box-shadow:0 24px 60px -12px oklch(38% 0.18 300 / .4);}
+  .video-wrap iframe{
+    position:absolute;top:0;left:0;width:100%;height:100%;
+    border-radius:16px;border:0;
+  }
+
+  /* ==================== MODAL LISTEN ==================== */
   .modal{
     position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;z-index:2000;padding:20px;
   }
@@ -442,7 +486,7 @@
 
     <div class="hero__meta">
       <span class="track-neon">TRACK 03 · BUKOFLOW</span>
-      <span>● PRE-SAVE</span>
+      <span>● DISPONIBLE</span>
     </div>
 
     <div class="hero__title">
@@ -451,31 +495,28 @@
     </div>
 
     <div class="hero__cta">
-      <button onclick="openPreSaveModal()" class="btn btn--primary">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-        Pre-Save ahora
-      </button>
+      <a href="https://open.spotify.com/album/1tWm0qNtmLFCxq48w4fZba" target="_blank" rel="noopener" class="btn btn--primary">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424a.623.623 0 01-.857.207c-2.348-1.435-5.304-1.76-8.785-.964a.623.623 0 01-.277-1.215c3.809-.87 7.076-.496 9.712 1.115a.623.623 0 01.207.857zm1.223-2.722a.78.78 0 01-1.072.257c-2.687-1.652-6.785-2.131-9.965-1.166a.78.78 0 01-.973-.519.781.781 0 01.52-.972c3.632-1.102 8.147-.569 11.233 1.328a.78.78 0 01.257 1.072zm.105-2.835C14.692 8.95 9.375 8.775 6.297 9.71a.937.937 0 11-.543-1.794c3.563-1.08 9.492-.87 13.232 1.37a.937.937 0 01-.072 1.581z"/></svg>
+        Escucha en Spotify
+      </a>
     </div>
   </section>
 
   <!-- =================== TICKER =================== -->
   <section class="ticker" aria-hidden="true">
     <div class="ticker__track">
-      <span>Conejo Malo</span><span>Avalon Davies</span><span>nuevo sencillo</span><span>29 mayo 2026</span>
-      <span>Conejo Malo</span><span>Avalon Davies</span><span>nuevo sencillo</span><span>29 mayo 2026</span>
+      <span>Conejo Malo</span><span>Avalon Davies</span><span>ya disponible</span><span>escúchalo ahora</span>
+      <span>Conejo Malo</span><span>Avalon Davies</span><span>ya disponible</span><span>escúchalo ahora</span>
     </div>
   </section>
 
-  <!-- =================== COUNTDOWN ========================== -->
-  <section class="count" aria-label="Cuenta regresiva hasta el estreno">
-    <div class="count__kicker">— estreno mundial —</div>
-    <div class="count__date">viernes, 29 de mayo</div>
-    <div class="count__time">7:00 PM · Panamá (UTC −5)</div>
-    <div class="count__grid">
-      <div class="count__cell"><div class="count__num" data-c="d">--</div><div class="count__lbl">días</div></div>
-      <div class="count__cell"><div class="count__num" data-c="h">--</div><div class="count__lbl">hrs</div></div>
-      <div class="count__cell"><div class="count__num" data-c="m">--</div><div class="count__lbl">min</div></div>
-      <div class="count__cell"><div class="count__num" data-c="s">--</div><div class="count__lbl">seg</div></div>
+  <!-- =================== DISPONIBLE ========================== -->
+  <section class="count" aria-label="Ya disponible">
+    <div class="count__kicker">— ya disponible —</div>
+    <div class="count__date">Conejo Malo</div>
+    <div class="count__time">viernes, 29 de mayo · 2026</div>
+    <div style="display:flex;justify-content:center;">
+      <div class="avail-badge"><span class="avail-dot"></span>En todas las plataformas</div>
     </div>
   </section>
 
@@ -491,21 +532,34 @@
     </div>
   </section>
 
-  <!-- =================== PRE-SAVE GRID ==================== -->
-  <section class="save" id="save" aria-label="Opciones de pre-guardado">
-    <h2 class="save__title">Pre-<em>guarda</em><br/>en tu favorita</h2>
+  <!-- =================== VIDEO OFICIAL ==================== -->
+  <section class="video-section" aria-label="Video oficial de Conejo Malo">
+    <div class="video-kicker">— video oficial —</div>
+    <div class="video-wrap">
+      <iframe
+        src="https://www.youtube.com/embed/xTRq2_DoZwU?rel=0&color=white"
+        title="Avalon Davies — Conejo Malo (Video Oficial)"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </section>
+
+  <!-- =================== PLATAFORMAS ==================== -->
+  <section class="save" id="save" aria-label="Plataformas de streaming">
+    <h2 class="save__title"><em>Escucha</em><br/>en tu favorita</h2>
     <div class="save__sub">— elige tu plataforma —</div>
     <div class="save__grid">
 
-      <!-- Featured: Spotify - Smart Link PUSH.fm -->
-      <a href="https://push.fm/ps/con" target="_blank" rel="noopener" class="dsp dsp--feature" data-platform="Spotify" aria-label="Pre-guardar en Spotify">
+      <!-- Featured: Spotify - Álbum directo -->
+      <a href="https://open.spotify.com/album/1tWm0qNtmLFCxq48w4fZba" target="_blank" rel="noopener" class="dsp dsp--feature" data-platform="Spotify" aria-label="Escuchar en Spotify">
         <span class="dsp__logo" aria-hidden="true">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <circle cx="12" cy="12" r="12" fill="#1DB954"/>
             <path d="M17.6 16.5c-.2.3-.6.4-.9.2-2.5-1.5-5.6-1.9-9.3-1-.4.1-.7-.1-.8-.5-.1-.4.1-.7.5-.8 4-.9 7.5-.5 10.3 1.2.3.2.4.6.2.9zm1.2-2.7c-.2.4-.7.5-1.1.3-2.8-1.7-7.2-2.2-10.5-1.2-.4.1-.9-.1-1-.6-.1-.5.1-.9.6-1 3.8-1.1 8.6-.5 11.8 1.4.4.2.5.7.2 1.1zm.1-2.9C15.4 8.9 9.6 8.7 6.3 9.7c-.5.2-1.1-.1-1.3-.7-.2-.5.1-1.1.7-1.3 3.8-1.1 10.2-.9 13.9 1.4.5.3.7.9.4 1.4-.3.4-.9.6-1.1.3z" fill="#000"/>
           </svg>
         </span>
-        <span class="dsp__name">Spotify · Pre-save</span>
+        <span class="dsp__name">Spotify</span>
         <span class="dsp__arrow">↗</span>
       </a>
 
@@ -616,7 +670,7 @@
     </div>
 
     <p style="margin-top:28px; font-size:12px; color:var(--smoke); text-align:center; font-family:var(--mono); letter-spacing:.2em;">
-      El pre-save es <strong>gratis</strong> y te notifica cuando salga el tema.
+      disponible desde el 29 de mayo · 2026
     </p>
   </section>
 
@@ -637,19 +691,19 @@
 <div id="preSaveModal" class="modal" onclick="if (event.target.id === 'preSaveModal') closePreSaveModal()">
   <div class="modal__content" onclick="event.stopImmediatePropagation()">
     <span class="modal__close" onclick="closePreSaveModal()">&times;</span>
-    <h2 class="modal__title">Pre-guarda<br/>Conejo Malo</h2>
+    <h2 class="modal__title">Escucha<br/><em>Conejo Malo</em></h2>
     <p class="modal__subtitle">Elige tu plataforma favorita</p>
 
     <div class="modal__grid">
-      <!-- Spotify (working smart link) -->
-      <a href="https://push.fm/ps/con" target="_blank" rel="noopener" class="dsp dsp--feature" data-platform="Spotify" onclick="handleSpotifyClick(event, this)">
+      <!-- Spotify - álbum directo -->
+      <a href="https://open.spotify.com/album/1tWm0qNtmLFCxq48w4fZba" target="_blank" rel="noopener" class="dsp dsp--feature" data-platform="Spotify">
         <span class="dsp__logo" aria-hidden="true">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <circle cx="12" cy="12" r="12" fill="#1DB954"/>
             <path d="M17.6 16.5c-.2.3-.6.4-.9.2-2.5-1.5-5.6-1.9-9.3-1-.4.1-.7-.1-.8-.5-.1-.4.1-.7.5-.8 4-.9 7.5-.5 10.3 1.2.3.2.4.6.2.9zm1.2-2.7c-.2.4-.7.5-1.1.3-2.8-1.7-7.2-2.2-10.5-1.2-.4.1-.9-.1-1-.6-.1-.5.1-.9.6-1 3.8-1.1 8.6-.5 11.8 1.4.4.2.5.7.2 1.1zm.1-2.9C15.4 8.9 9.6 8.7 6.3 9.7c-.5.2-1.1-.1-1.3-.7-.2-.5.1-1.1.7-1.3 3.8-1.1 10.2-.9 13.9 1.4.5.3.7.9.4 1.4-.3.4-.9.6-1.1.3z" fill="#000"/>
           </svg>
         </span>
-        <span class="dsp__name">Spotify · Pre-save</span>
+        <span class="dsp__name">Spotify</span>
         <span class="dsp__arrow">↗</span>
       </a>
 
@@ -674,78 +728,13 @@
 </div>
 
 <script>
-  /* ---------- Countdown to release ---------- */
-  (function(){
-    const target = Date.UTC(2026, 4, 30, 0, 0, 0);
-    const cells = {
-      d: document.querySelector('[data-c="d"]'),
-      h: document.querySelector('[data-c="h"]'),
-      m: document.querySelector('[data-c="m"]'),
-      s: document.querySelector('[data-c="s"]'),
-    };
-    const pad = n => String(Math.max(0,n)).padStart(2,'0');
-    function tick(){
-      const diff = Math.max(0, target - Date.now());
-      cells.d.textContent = pad(Math.floor(diff / 86400000));
-      cells.h.textContent = pad(Math.floor((diff % 86400000) / 3600000));
-      cells.m.textContent = pad(Math.floor((diff % 3600000) / 60000));
-      cells.s.textContent = pad(Math.floor((diff % 60000) / 1000));
-    }
-    tick();
-    setInterval(tick, 1000);
-  })();
-
   /* ---------- Modal functions ---------- */
-  function openPreSaveModal() {
+  function openListenModal() {
     document.getElementById('preSaveModal').classList.add('show');
   }
   function closePreSaveModal() {
     document.getElementById('preSaveModal').classList.remove('show');
   }
-
-  /* ---------- Spotify button loading state + open ---------- */
-  function handleSpotifyClick(e, btn) {
-    e.preventDefault();
-
-    const nameSpan = btn.querySelector('.dsp__name');
-    const originalText = nameSpan.innerHTML;
-
-    nameSpan.innerHTML = 'Abriendo pre-save...';
-    btn.style.pointerEvents = 'none';
-
-    setTimeout(() => {
-      window.open(btn.href, '_blank');
-      nameSpan.innerHTML = originalText;
-      btn.style.pointerEvents = 'auto';
-      closePreSaveModal();
-    }, 650);
-  }
-
-  /* ---------- Pre-save buttons UX (toast for non-Spotify with #) ---------- */
-  (function(){
-    const dsps = document.querySelectorAll('.dsp');
-    const toast = document.getElementById('toast');
-    const toastText = document.getElementById('toast-text');
-
-    dsps.forEach(btn => {
-      if (btn.getAttribute('href') === '#') {
-        btn.addEventListener('click', function(e) {
-          e.preventDefault();
-          const platform = btn.dataset.platform || 'tu plataforma';
-          toastText.textContent = `¡Gracias! Te avisaremos cuando salga en ${platform}.`;
-          toast.style.display = 'flex';
-          toast.classList.add('show');
-
-          setTimeout(() => {
-            toast.classList.remove('show');
-            setTimeout(() => { toast.style.display = 'none'; }, 300);
-            }, 2800);
-
-          if (navigator.vibrate) navigator.vibrate(25);
-        });
-      }
-    });
-  })();
 
   /* ---------- Extra polish: subtle hero image load fade ---------- */
   (function(){
